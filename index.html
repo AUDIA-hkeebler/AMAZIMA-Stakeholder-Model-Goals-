@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMAZIMA Goal Setting Workshop</title>
+  <style>
+    @font-face { font-family: 'Breathing'; src: local('Breathing'); font-display: swap; }
+    @font-face { font-family: 'Gotham Book'; src: local('Gotham Book'); font-display: swap; }
+    @font-face { font-family: 'Gotham Light'; src: local('Gotham Light'); font-display: swap; }
+    @font-face { font-family: 'Gotham Bold'; src: local('Gotham Bold'); font-display: swap; }
+
+    :root {
+      --font-script: 'Breathing', 'Brush Script MT', cursive;
+      --font-book: 'Gotham Book', 'Avenir Next', 'Trebuchet MS', sans-serif;
+      --font-light: 'Gotham Light', 'Avenir Next', 'Trebuchet MS', sans-serif;
+      --font-bold: 'Gotham Bold', 'Avenir Next Demi Bold', 'Trebuchet MS', sans-serif;
+      --gold: #FFC844;
+      --gold-dark: #E0592A;
+      --magenta: #B12028;
+      --magenta-dark: #CA3625;
+      --aqua: #58585A;
+      --charcoal-900: #0F1F3B;
+      --charcoal-800: #172C52;
+      --slate-300: #F0EADC;
+      --slate-400: #CFC9BC;
+      --white: #FFFFFF;
+      --gradient-brand: linear-gradient(90deg, #B12028, #FFC844);
+      --gradient-magenta: linear-gradient(135deg, #B12028, #CA3625);
+      --gradient-gold: linear-gradient(135deg, #FFC844, #E0592A);
+      --photo-hero: url('https://amazima.org/wp-content/uploads/2024/07/community-engagement-fullwidth-friends-smiles.jpg');
+      --photo-body: url('https://amazima.org/wp-content/uploads/2024/07/community-engagement-fullwidth-home-visits.jpg');
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-book);
+      background: var(--charcoal-900);
+      color: var(--slate-300);
+      line-height: 1.75;
+      overflow-x: hidden;
+      font-size: 1.05rem;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-brand);
+      z-index: 9999;
+    }
+
+    .top-nav {
+      position: fixed;
+      top: 4px;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      background: rgba(15,31,59,0.9);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-brand {
+      font-family: var(--font-bold);
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: 1.2rem;
+    }
+
+    .nav-brand .accent { color: var(--gold-dark); }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      color: var(--slate-400);
+      text-decoration: none;
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .presentation-logo-wrap {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .presentation-logo-wrap.top {
+      padding: 6rem 1rem 1.4rem;
+      background: linear-gradient(180deg, rgba(15,31,59,0.98) 0%, rgba(15,31,59,0.88) 52%, rgba(15,31,59,0) 100%);
+    }
+
+    .presentation-logo-wrap.bottom {
+      margin-top: -6px;
+      padding: 2rem 1rem;
+      background: linear-gradient(0deg, rgba(15,31,59,0.98) 0%, rgba(15,31,59,0.9) 52%, rgba(15,31,59,0) 100%),
+                  linear-gradient(140deg, rgba(15,31,59,0.74), rgba(23,44,82,0.58));
+    }
+
+    .presentation-logo { width: min(380px, 84vw); height: auto; display: block; }
+
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 7.4rem 3rem;
+    }
+
+    .hero {
+      text-align: center;
+      padding-top: 11.5rem;
+      padding-bottom: 7rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, rgba(15,31,59,1) 0%, rgba(15,31,59,0.9) 24%, rgba(15,31,59,0.5) 55%, rgba(15,31,59,0.24) 100%),
+                  linear-gradient(135deg, rgba(15,31,59,0.7), rgba(23,44,82,0.64)),
+                  var(--photo-hero) center 30%/cover no-repeat;
+    }
+
+    .section-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(15,31,59,0.2) 0%, rgba(15,31,59,0.55) 58%, rgba(15,31,59,0.88) 100%),
+                  linear-gradient(145deg, rgba(15,31,59,0.72), rgba(23,44,82,0.7)),
+                  var(--photo-body) center 34%/cover no-repeat;
+    }
+
+    .section-label {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--magenta);
+      font-family: var(--font-light);
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+    }
+
+    .hero-series {
+      color: var(--magenta);
+      font-family: var(--font-light);
+      text-transform: uppercase;
+      font-size: 1.45rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-script);
+      color: var(--white);
+      font-size: clamp(2.7rem, 6vw, 4.8rem);
+      line-height: 1.08;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title .accent { color: var(--gold); }
+
+    .hero-tagline {
+      max-width: 70ch;
+      margin: 0 auto;
+      font-size: 1.12rem;
+      line-height: 1.9;
+    }
+
+    .stat-strip {
+      margin: 2.4rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+      max-width: 760px;
+    }
+
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-family: var(--font-bold);
+      font-size: 2.1rem;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .stat-number.magenta { color: var(--magenta); }
+    .stat-number.gold { color: var(--gold); }
+    .stat-number.orange { color: var(--gold-dark); }
+    .stat-label { color: var(--slate-400); font-size: 0.86rem; }
+
+    .section-title {
+      font-family: var(--font-bold);
+      font-size: clamp(2rem, 3.9vw, 2.9rem);
+      line-height: 1.2;
+      letter-spacing: 0.015em;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+
+    .section-body { max-width: 68ch; line-height: 1.88; }
+    .section-divider {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      padding: 1.8rem;
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(177,32,40,0.45);
+      box-shadow: 0 8px 18px rgba(15,31,59,0.32);
+    }
+
+    .card h3 {
+      font-family: var(--font-bold);
+      color: var(--white);
+      font-size: 1.06rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .pillars .card h3 span { color: var(--gold); }
+
+    .example-title {
+      margin-top: 1.4rem;
+      margin-bottom: 0.6rem;
+      color: var(--gold);
+      font-family: var(--font-bold);
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .subtask-list {
+      list-style: none;
+      margin-top: 0.9rem;
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .subtask-list li {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+    }
+
+    .goal-bullets {
+      margin: 0.5rem 0 0;
+      padding-left: 1.1rem;
+      display: grid;
+      gap: 0.45rem;
+      color: var(--slate-300);
+    }
+
+    .goal-bullets li {
+      line-height: 1.55;
+    }
+
+    .subtask-meta {
+      display: inline-block;
+      margin-top: 0.35rem;
+      font-size: 0.84rem;
+      color: var(--slate-400);
+    }
+
+    .check-grid {
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-top: 1.6rem;
+    }
+
+    .check-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      padding: 1.2rem;
+    }
+
+    .check-card h4 {
+      color: var(--white);
+      font-family: var(--font-bold);
+      margin-bottom: 0.55rem;
+      font-size: 0.98rem;
+    }
+
+    .check-card ul {
+      list-style: none;
+      display: grid;
+      gap: 0.35rem;
+      color: var(--slate-300);
+      font-size: 0.94rem;
+    }
+
+    .check-card li {
+      position: relative;
+      padding-left: 1.45rem;
+    }
+
+    .check-card li::before {
+      content: '☐';
+      position: absolute;
+      left: 0;
+      top: 0.18em;
+      color: var(--gold);
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    .compare-grid {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.4rem;
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .compare-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      padding: 1rem;
+      min-height: 92px;
+    }
+
+    .compare-box strong { display: block; margin-bottom: 0.45rem; }
+    .compare-box.vague strong { color: var(--slate-400); }
+    .compare-box.objective strong { color: var(--gold); }
+
+    .tip {
+      margin-top: 2rem;
+      background: rgba(177,32,40,0.09);
+      border: 1px solid rgba(177,32,40,0.35);
+      border-radius: 14px;
+      padding: 1.1rem 1.2rem;
+    }
+
+    .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.62s cubic-bezier(.22,.61,.36,1), transform 0.62s cubic-bezier(.22,.61,.36,1); }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.08s; }
+    .delay-2 { transition-delay: 0.16s; }
+    .delay-3 { transition-delay: 0.24s; }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 1.2rem 3rem;
+      color: var(--slate-400);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    @media (max-width: 900px) {
+      section { padding: 5.6rem 1.4rem; }
+      .top-nav { padding: 0.8rem 1.1rem; }
+      .nav-links { display: none; }
+      .stat-strip { grid-template-columns: 1fr; max-width: 380px; }
+      .compare-row { grid-template-columns: 1fr; }
+      .hero-series { font-size: 1.05rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" id="topNav">
+    <a href="#" class="nav-brand"><span class="accent">AMAZIMA</span> Ministries</a>
+    <div class="nav-links">
+      <a href="#foundation">Foundation</a>
+      <a href="#pillars">Pillars</a>
+      <a href="#examples">Examples</a>
+      <a href="#checklist">Checklist</a>
+    </div>
+  </nav>
+
+  <div class="presentation-logo-wrap top">
+    <img class="presentation-logo" src="amazima_logo_slide1_official.png" alt="AMAZIMA Ministries logo">
+  </div>
+
+  <section class="hero" id="hero">
+    <div class="hero-series fade-in">Stakeholder Model Workshop</div>
+    <h1 class="hero-title fade-in delay-1">Goal Setting<br><span class="accent">That Can Be Measured</span></h1>
+    <p class="hero-tagline fade-in delay-2">In the Stakeholder Model, strong goals are built with objective sub-tasks so each person can complete a clear monthly 1-10 self-assessment. Performance drives recognition, so goals must be specific, time-bound, and evidence-based.</p>
+    <div class="stat-strip fade-in delay-3">
+      <div class="stat-item">
+        <div class="stat-number magenta">1-10</div>
+        <div class="stat-label">Monthly Self-Assessment</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number gold">1/3 + 1/3 + 1/3</div>
+        <div class="stat-label">Balanced Pillars</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number orange">6 Months</div>
+        <div class="stat-label">Goal Segment</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="foundation" class="section-bg">
+    <div class="section-label fade-in">01 / Foundation</div>
+    <h2 class="section-title fade-in delay-1">The Objective Goal Standard</h2>
+    <p class="section-body fade-in delay-2">Before finalizing any goal, ask: <strong>Can we point to a number and a piece of evidence?</strong> If the task has a clear count, clear timeline, and clear proof, monthly coaching becomes fair, simple, and consistent.</p>
+    <div class="card-grid fade-in delay-3">
+      <div class="card">
+        <h3>Vague</h3>
+        <p>"Improve my attitude at work."</p>
+      </div>
+      <div class="card">
+        <h3>Stakeholder Objective</h3>
+        <p>"Give three colleague shout-outs during weekly huddles each month to build a culture of appreciation."</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="pillars" class="section-bg pillars">
+    <div class="section-label fade-in">02 / The Three Pillars</div>
+    <h2 class="section-title fade-in delay-1">Balanced Goal Design</h2>
+    <div class="card-grid fade-in delay-2">
+      <div class="card">
+        <h3>Mastery of Existing Skills <span>(1/3)</span></h3>
+        <p>Improve quality, efficiency, consistency, and stewardship in current responsibilities.</p>
+        <div class="example-title">Good Goal Examples</div>
+        <ul class="goal-bullets">
+          <li>Reduce report turnaround from 5 days to 3 by Month 4.</li>
+          <li>Maintain 100% attendance accuracy for the full segment.</li>
+          <li>Create and publish an SOP for weekly inventory by Month 3.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>New Skill Development <span>(1/3)</span></h3>
+        <p>Grow capability through cross-training, projects, education, and leadership readiness.</p>
+        <div class="example-title">Good Goal Examples</div>
+        <ul class="goal-bullets">
+          <li>Complete Advanced Leadership module and submit certificate.</li>
+          <li>Shadow Finance 4 hours monthly for grant reporting.</li>
+          <li>Lead one 15-minute team training on new software.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Culture and Character <span>(1/3)</span></h3>
+        <p>Live values in visible ways that strengthen unity, service, and spiritual community.</p>
+        <div class="example-title">Good Goal Examples</div>
+        <ul class="goal-bullets">
+          <li>Lead morning devotion monthly.</li>
+          <li>Complete 3 cross-department encouragement coffees.</li>
+          <li>Implement one practical morale-strengthening action.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="examples" class="section-bg">
+    <div class="section-label fade-in">03 / Goal Form Examples</div>
+    <h2 class="section-title fade-in delay-1">Objective Sub-Tasks in Practice</h2>
+    <div class="card-grid fade-in delay-2">
+      <div class="card">
+        <h3>Example 1: Operations / Mentor</h3>
+        <p><strong>Pillar:</strong> Mastery of Existing Skills<br><strong>Goal:</strong> Gold Standard efficiency and accuracy in student progress reporting.</p>
+        <ul class="subtask-list">
+          <li>File all 30 weekly check-in reports by Friday 5:00 PM.<br><span class="subtask-meta">Timeline: Monthly | Evidence: 100% submission log</span></li>
+          <li>Maintain zero missing-data flags in monthly reporting.<br><span class="subtask-meta">Timeline: Monthly | Evidence: Spreadsheet audit</span></li>
+          <li>Submit one critical growth story monthly for Donor Relations.<br><span class="subtask-meta">Timeline: Months 1-6 | Evidence: 6 stories submitted</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Example 2: Emerging Leader / Admin</h3>
+        <p><strong>Pillar:</strong> New Skill Development<br><strong>Goal:</strong> Build competency in departmental budget management.</p>
+        <ul class="subtask-list">
+          <li>Complete Finance Basics module and pass final quiz.<br><span class="subtask-meta">Timeline: By Month 2 | Evidence: Completion certificate</span></li>
+          <li>Attend two budget-to-actual review meetings with Finance Director.<br><span class="subtask-meta">Timeline: Months 2-3 | Evidence: Attendance + notes</span></li>
+          <li>Prepare Month 5 and Month 6 draft budgets independently.<br><span class="subtask-meta">Timeline: Months 5-6 | Evidence: Drafts 48h before deadline</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Example 3: All Team Members</h3>
+        <p><strong>Pillar:</strong> Culture and Character<br><strong>Goal:</strong> Strengthen morale and spiritual community in the Jinja office.</p>
+        <ul class="subtask-list">
+          <li>Lead staff devotion twice during the segment.<br><span class="subtask-meta">Timeline: Months 1-6 | Evidence: Sign-up confirmation</span></li>
+          <li>Present one written solution for an admin friction point.<br><span class="subtask-meta">Timeline: Month 3 | Evidence: Monthly huddle presentation</span></li>
+          <li>Hold one Character Coffee monthly with another department.<br><span class="subtask-meta">Timeline: Monthly | Evidence: 6 meetings logged</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="checklist" class="section-bg">
+    <div class="section-label fade-in">04 / Objective Checklist</div>
+    <h2 class="section-title fade-in delay-1">Test Every Sub-Task for Clarity</h2>
+    <div class="check-grid fade-in delay-2">
+      <div class="check-card">
+        <h4>1. Evidence Test</h4>
+        <ul>
+          <li>If I tell my manager this is 100% complete, can I point to a physical document, a digital file, or a specific date on a calendar to prove it?</li>
+          <li>Does the sub-task avoid vague words like \"better,\" \"more,\" \"improve,\" or \"try\"?</li>
+        </ul>
+      </div>
+      <div class="check-card">
+        <h4>2. Number Test</h4>
+        <ul>
+          <li>Does the sub-task include a specific count or percentage (e.g., \"4 meetings,\" \"10 reports,\" \"100% accuracy\")?</li>
+          <li>If I only do half the work, is it mathematically clear that my self-assessment score should be a 5?</li>
+        </ul>
+      </div>
+      <div class="check-card">
+        <h4>3. Timeline Test</h4>
+        <ul>
+          <li>Does the sub-task have a clear deadline within this 6-month (or 5-month) sprint?</li>
+          <li>Is it clear which month the work needs to be started and finished?</li>
+        </ul>
+      </div>
+      <div class="check-card">
+        <h4>4. Support Test</h4>
+        <ul>
+          <li>Have I identified what I need from my manager to hit a 10 on this goal?</li>
+          <li>Does this sub-task directly help meet one of the high-level Departmental Outcomes my manager provided?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="compare-grid fade-in delay-3">
+      <div class="compare-row">
+        <div class="compare-box vague"><strong>Vague</strong>I want to be more helpful to the team.</div>
+        <div class="compare-box objective"><strong>Objective</strong>I will lead two morning devotions by Month 4.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-box vague"><strong>Vague</strong>I will learn more about our budget.</div>
+        <div class="compare-box objective"><strong>Objective</strong>I will shadow two budget reviews and submit a written summary.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-box vague"><strong>Vague</strong>I'll try to be a leader.</div>
+        <div class="compare-box objective"><strong>Objective</strong>I will lead one staff meeting, including agenda and follow-up notes.</div>
+      </div>
+    </div>
+
+    <div class="tip fade-in delay-3">
+      <strong>Workshop Facilitator Tip:</strong> Have participants exchange draft goals and test each one for “number + evidence.” If either is missing, rewrite the sub-task before approval.
+    </div>
+  </section>
+
+  <div class="presentation-logo-wrap bottom">
+    <img class="presentation-logo" src="amazima_logo_slide1_official.png" alt="AMAZIMA Ministries logo">
+  </div>
+
+  <footer>
+    <span style="color:var(--gold)">AMAZIMA</span> Ministries
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
